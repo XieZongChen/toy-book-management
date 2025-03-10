@@ -12,6 +12,7 @@ const storage = multer.diskStorage({
     cb(null, 'uploads');
   },
   filename: function (req, file, cb) {
+    // 文件名为时间戳-随机数-文件名的格式
     const uniqueSuffix =
       Date.now() +
       '-' +

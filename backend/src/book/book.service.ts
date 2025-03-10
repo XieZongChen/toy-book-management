@@ -79,13 +79,16 @@ export class BookService {
 
   @Post('upload')
   @UseInterceptors(
+    // 通过 FileInterceptor 的拦截器来解析请求里的 file 字段
     FileInterceptor('file', {
-      dest: 'uploads',
+      dest: 'uploads', // 保存文件的目录
       storage: storage,
       limits: {
+        // 文件限制
         fileSize: 1024 * 1024 * 3,
       },
       fileFilter(req, file, callback) {
+        // 自定义文件过滤，这里限制了上传类型只能是图片，且为固定几个类型
         const extname = path.extname(file.originalname);
         if (['.png', '.jpg', '.gif'].includes(extname)) {
           callback(null, true);
