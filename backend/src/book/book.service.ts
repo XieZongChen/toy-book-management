@@ -1,8 +1,18 @@
 import { UpdateBookDto } from './dto/update-book.dto';
 import { CreateBookDto } from './dto/create-book.dto';
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  Post,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
 import { DbService } from 'src/db/db.service';
 import { Book } from './entities/book.entity';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { storage } from './my-file-storage';
+import * as path from 'path';
 
 function randomNum() {
   return Math.floor(Math.random() * 1000000);
@@ -65,5 +75,28 @@ export class BookService {
       books.splice(index, 1);
       await this.dbService.write(books);
     }
+  }
+
+  @Post('upload')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      dest: 'uploads',
+      storage: storage,
+      limits: {
+        fileSize: 1024 * 1024 * 3,
+      },
+      fileFilter(req, file, callback) {
+        const extname = path.extname(file.originalname);
+        if (['.png', '.jpg', '.gif'].includes(extname)) {
+          callback(null, true);
+        } else {
+          callback(new BadRequestException('只能上传图片'), false);
+        }
+      },
+    }),
+  )
+  uploadFile(@UploadedFile() file: Express.Multer.File) {
+    console.log('file', file);
+    return file.path;
   }
 }
