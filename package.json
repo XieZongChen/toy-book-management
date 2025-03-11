@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "npm-run-all backend:dev",
+    "dev": "npm-run-all --parallel backend:dev frontend:dev",
+    "frontend:dev": "npm run --prefix ./frontend dev",
     "backend:dev": "npm run --prefix ./backend start:dev"
   },
   "author": "",
