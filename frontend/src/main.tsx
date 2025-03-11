@@ -1,8 +1,10 @@
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import '@ant-design/v5-patch-for-react-19';
 import { Login } from './Login';
 import { Register } from './Register';
 import { BookManage } from './BookManage';
+
 
 const routes = [
   {

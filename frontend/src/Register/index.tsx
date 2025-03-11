@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { Button, Form, Input, message } from 'antd';
 import { register } from '../services';
 import './index.css';
@@ -7,29 +8,6 @@ interface RegisterUser {
   password: string;
   password2: string;
 }
-
-const onFinish = async (values: RegisterUser) => {
-
-    if(values.password !== values.password2) {
-        message.error('两次密码不一致');
-        return;
-    }
-
-    try {
-        const res = await register(values.username, values.password);
-
-        if(res.status === 201 || res.status === 200) {
-            message.success('注册成功');
-
-            setTimeout(() => {
-                window.location.href = '/login';
-            }, 1000);
-        }
-    } catch(e: any) {
-        message.error(e.response.data.message);
-    }
-}
-
 
 const layout1 = {
   labelCol: { span: 4 },
@@ -41,7 +19,28 @@ const layout2 = {
   wrapperCol: { span: 24 },
 };
 
-export function Register() {
+export const Register: FC = () => {
+  const onFinish = async (values: RegisterUser) => {
+    if (values.password !== values.password2) {
+      message.error('两次密码不一致');
+      return;
+    }
+
+    try {
+      const res = await register(values.username, values.password);
+
+      if (res.status === 201 || res.status === 200) {
+        message.success('注册成功');
+
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 1000);
+      }
+    } catch (e: any) {
+      message.error(e.response.data.message);
+    }
+  };
+
   return (
     <div id='register-container'>
       <h1>图书管理系统</h1>
@@ -84,4 +83,4 @@ export function Register() {
       </Form>
     </div>
   );
-}
+};
