@@ -1,17 +1,8 @@
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-
-function BookManage() {
-  return <div>book</div>;
-}
-
-function Login() {
-  return <div>login</div>;
-}
-
-function Register() {
-  return <div>register</div>;
-}
+import { Login } from './Login';
+import { Register } from './Register';
+import { BookManage } from './BookManage';
 
 const routes = [
   {
