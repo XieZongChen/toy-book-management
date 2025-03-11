@@ -1,4 +1,5 @@
 import { Button, Form, Input, message } from 'antd';
+import { login } from '../services';
 import './index.css';
 
 interface LoginUser {
@@ -18,7 +19,19 @@ const layout2 = {
 
 export function Login() {
   const onFinish = async (values: LoginUser) => {
-    console.log(values);
+    try {
+      const res = await login(values.username, values.password);
+
+      if (res.status === 201 || res.status === 200) {
+        message.success('登录成功');
+
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 1000);
+      }
+    } catch (e: any) {
+      message.error(e.response.data.message);
+    }
   };
 
   return (
