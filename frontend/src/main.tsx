@@ -4,7 +4,7 @@ import '@ant-design/v5-patch-for-react-19';
 import { Login } from './Login';
 import { Register } from './Register';
 import { BookManage } from './BookManage';
-
+import './index.css';
 
 const routes = [
   {
