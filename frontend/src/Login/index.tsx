@@ -1,6 +1,5 @@
-import { Button, Form, Input, message } from 'antd';
+import { Button, Card, Form, Input, message } from 'antd';
 import { login } from '../services';
-import './index.css';
 
 interface LoginUser {
   username: string;
@@ -35,9 +34,19 @@ export function Login() {
   };
 
   return (
-    <div id='login-container'>
-      <h1>图书管理系统</h1>
-      <Form {...layout1} onFinish={onFinish} colon={false} autoComplete='off'>
+    <div
+      id='login-container'
+      className='h-[100vh] flex flex-col justify-center items-center gap-[30px]'
+    >
+      <h1 className='text-4xl font-bold tracking-wider'>图书管理系统</h1>
+
+      <Form
+        {...layout1}
+        onFinish={onFinish}
+        colon={false}
+        autoComplete='off'
+        className='w-[400px]'
+      >
         <Form.Item
           label='用户名'
           name='username'
@@ -55,13 +64,13 @@ export function Login() {
         </Form.Item>
 
         <Form.Item {...layout2}>
-          <div className='links'>
+          <div className='flex justify-center'>
             <a href='/register'>没有账号？去注册</a>
           </div>
         </Form.Item>
 
-        <Form.Item {...layout2}>
-          <Button className='btn' type='primary' htmlType='submit'>
+        <Form.Item {...layout2} className='flex justify-center'>
+          <Button className='w-full' type='primary' htmlType='submit'>
             登录
           </Button>
         </Form.Item>
