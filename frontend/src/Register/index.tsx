@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { Button, Form, Input, message } from 'antd';
 import { register } from '../services';
 import './index.css';
@@ -19,7 +18,7 @@ const layout2 = {
   wrapperCol: { span: 24 },
 };
 
-export const Register: FC = () => {
+export function Register() {
   const onFinish = async (values: RegisterUser) => {
     if (values.password !== values.password2) {
       message.error('两次密码不一致');
@@ -83,4 +82,4 @@ export const Register: FC = () => {
       </Form>
     </div>
   );
-};
+}
