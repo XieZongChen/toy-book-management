@@ -1,6 +1,6 @@
 import { Button, Card, Form, Input, message } from 'antd';
 import './index.css';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { list } from '../services';
 
 interface Book {
@@ -13,10 +13,11 @@ interface Book {
 
 export function BookManage() {
   const [bookList, setBookList] = useState<Array<Book>>([]);
+  const [name, setName] = useState('');
 
-  async function fetchData() {
+  const fetchData = useCallback(async () => {
     try {
-      const data = await list();
+      const data = await list(name);
 
       if (data.status === 201 || data.status === 200) {
         setBookList(data.data);
@@ -24,18 +25,27 @@ export function BookManage() {
     } catch (e: any) {
       message.error(e.response.data.message);
     }
-  }
+  }, [name]);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
+
+  async function searchBook(values: { name: string }) {
+    setName(values.name);
+  }
 
   return (
     <div id='bookManage'>
       <h1>图书管理系统</h1>
       <div className='content'>
         <div className='book-search'>
-          <Form name='search' layout='inline' colon={false}>
+          <Form
+            name='search'
+            layout='inline'
+            colon={false}
+            onFinish={searchBook}
+          >
             <Form.Item label='图书名称' name='name'>
               <Input />
             </Form.Item>
@@ -54,9 +64,10 @@ export function BookManage() {
           </Form>
         </div>
         <div className='book-list'>
-          {bookList.map((book) => {
+          {bookList.map((book, idx) => {
             return (
               <Card
+                key={`${book.id}+${idx}`}
                 className='card'
                 hoverable
                 style={{ width: 300 }}

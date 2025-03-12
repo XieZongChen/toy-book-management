@@ -17,6 +17,10 @@ export async function login(username: string, password: string) {
     });
 }
 
-export async function list() {
-    return await axiosInstance.get('/book/list');
+export async function list(name: string) {
+    return await axiosInstance.get('/book/list', {
+        params: {
+            name
+        }
+    });
 }
