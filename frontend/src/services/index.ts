@@ -16,3 +16,7 @@ export async function login(username: string, password: string) {
         username, password
     });
 }
+
+export async function list() {
+    return await axiosInstance.get('/book/list');
+}

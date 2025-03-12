@@ -1,7 +1,35 @@
-import { Button, Card, Form, Input } from 'antd';
+import { Button, Card, Form, Input, message } from 'antd';
 import './index.css';
+import { useEffect, useState } from 'react';
+import { list } from '../services';
+
+interface Book {
+  id: number;
+  name: string;
+  author: string;
+  description: string;
+  cover: string;
+}
 
 export function BookManage() {
+  const [bookList, setBookList] = useState<Array<Book>>([]);
+
+  async function fetchData() {
+    try {
+      const data = await list();
+
+      if (data.status === 201 || data.status === 200) {
+        setBookList(data.data);
+      }
+    } catch (e: any) {
+      message.error(e.response.data.message);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div id='bookManage'>
       <h1>图书管理系统</h1>
@@ -26,7 +54,7 @@ export function BookManage() {
           </Form>
         </div>
         <div className='book-list'>
-          {[1, 2, 3, 4, 5, 6, 7].map((item) => {
+          {bookList.map((book) => {
             return (
               <Card
                 className='card'
@@ -35,12 +63,12 @@ export function BookManage() {
                 cover={
                   <img
                     alt='example'
-                    src='https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png'
+                    src={`http://localhost:3000/${book.cover}`}
                   />
                 }
               >
-                <h2>西游记</h2>
-                <div>测试一下</div>
+                <h2>{book.name}</h2>
+                <div>{book.author}</div>
                 <div className='links'>
                   <a href='#'>详情</a>
                   <a href='#'>编辑</a>
