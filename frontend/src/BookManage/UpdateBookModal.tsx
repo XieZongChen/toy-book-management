@@ -2,7 +2,7 @@ import { useCallback, useEffect } from 'react';
 import { Button, Form, Input, Modal, message } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import { CoverUpload } from './CoverUpload';
-import { detail } from '../services';
+import { detail, update, UpdateBook } from '../services';
 
 interface UpdateBookModalProps {
   id: number;
@@ -14,18 +14,25 @@ const layout = {
   wrapperCol: { span: 18 },
 };
 
-export interface UpdateBook {
-  id: number;
-  name: string;
-  author: string;
-  description: string;
-  cover: string;
-}
-
 export function UpdateBookModal(props: UpdateBookModalProps) {
   const [form] = useForm<UpdateBook>();
 
-  const handleOk = async function () {};
+  const handleOk = async function () {
+    await form.validateFields();
+
+    const values = form.getFieldsValue();
+
+    try {
+      const res = await update({ ...values, id: props.id });
+
+      if (res.status === 201 || res.status === 200) {
+        message.success('更新成功');
+        props.handleClose();
+      }
+    } catch (e: any) {
+      message.error(e.response.data.message);
+    }
+  };
 
   const query = useCallback(async () => {
     if (!props.id) {
