@@ -102,7 +102,7 @@ export function BookManage() {
         isOpen={isCreateBookModalOpen}
         handleClose={() => {
           setCreateBookModalOpen(false);
-          setName('');
+          fetchData();
         }}
       ></CreateBookModal>
     </div>

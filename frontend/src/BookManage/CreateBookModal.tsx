@@ -1,6 +1,7 @@
 import { Form, Input, message, Modal } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import { create, CreateBook } from '../services';
+import { CoverUpload } from './CoverUpload';
 
 interface CreateBookModalProps {
   isOpen: boolean;
@@ -67,7 +68,7 @@ export function CreateBookModal(props: CreateBookModalProps) {
           name='cover'
           rules={[{ required: true, message: '请上传图书封面!' }]}
         >
-          <Input />
+          <CoverUpload></CoverUpload>
         </Form.Item>
       </Form>
     </Modal>
