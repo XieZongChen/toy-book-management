@@ -1,6 +1,5 @@
 import { Form, Input, message, Modal } from 'antd';
-import { useForm } from 'antd/es/form/Form';
-import { create, CreateBook } from '../services/book';
+import { create, ICreateBook } from '@/services/book';
 import { CoverUpload } from './CoverUpload';
 
 interface CreateBookModalProps {
@@ -13,7 +12,7 @@ const layout = {
 };
 
 export function CreateBookModal(props: CreateBookModalProps) {
-  const [form] = useForm<CreateBook>();
+  const [form] = Form.useForm<ICreateBook>();
 
   const handleOk = async function () {
     await form.validateFields();

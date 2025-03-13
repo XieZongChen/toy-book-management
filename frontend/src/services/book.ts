@@ -1,5 +1,15 @@
 import { axiosInstance } from "./base";
 
+export interface IBook {
+    id: number;
+    name: string;
+    author: string;
+    description: string;
+    cover: string;
+}
+
+export type ICreateBook = Omit<IBook, "id">
+
 export async function list(name: string) {
     return await axiosInstance.get('/book/list', {
         params: {
@@ -8,14 +18,7 @@ export async function list(name: string) {
     });
 }
 
-export interface CreateBook {
-    name: string;
-    author: string;
-    description: string;
-    cover: string;
-}
-
-export async function create(book: CreateBook) {
+export async function create(book: ICreateBook) {
     return await axiosInstance.post('/book/create', {
         name: book.name,
         author: book.author,
@@ -28,15 +31,7 @@ export async function detail(id: number) {
     return await axiosInstance.get(`/book/${id}`);
 }
 
-export interface UpdateBook {
-    id: number;
-    name: string;
-    author: string;
-    description: string;
-    cover: string;
-}
-
-export async function update(book: UpdateBook) {
+export async function update(book: IBook) {
     return await axiosInstance.put('/book/update', {
         id: book.id,
         name: book.name,

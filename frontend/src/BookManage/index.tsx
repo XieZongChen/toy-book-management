@@ -1,19 +1,11 @@
 import { Button, Card, Form, Input, message, Image, Popconfirm } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
+import { deleteBook, IBook, list } from '@/services/book';
 import { CreateBookModal } from './CreateBookModal';
 import { UpdateBookModal } from './UpdateBookModal';
-import { deleteBook, list } from '../services/book';
-
-interface Book {
-  id: number;
-  name: string;
-  author: string;
-  description: string;
-  cover: string;
-}
 
 export function BookManage() {
-  const [bookList, setBookList] = useState<Array<Book>>([]);
+  const [bookList, setBookList] = useState<Array<IBook>>([]);
   const [name, setName] = useState('');
   const [isCreateBookModalOpen, setCreateBookModalOpen] = useState(false);
   const [isUpdateBookModalOpen, setUpdateBookModalOpen] = useState(false);

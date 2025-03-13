@@ -1,8 +1,7 @@
 import { useCallback, useEffect } from 'react';
-import { Button, Form, Input, Modal, message } from 'antd';
-import { useForm } from 'antd/es/form/Form';
+import { Form, Input, Modal, message } from 'antd';
+import { detail, IBook, update } from '@/services/book';
 import { CoverUpload } from './CoverUpload';
-import { detail, update, UpdateBook } from '../services/book';
 
 interface UpdateBookModalProps {
   id: number;
@@ -15,7 +14,7 @@ const layout = {
 };
 
 export function UpdateBookModal(props: UpdateBookModalProps) {
-  const [form] = useForm<UpdateBook>();
+  const [form] = Form.useForm<IBook>();
 
   const handleOk = async function () {
     await form.validateFields();
