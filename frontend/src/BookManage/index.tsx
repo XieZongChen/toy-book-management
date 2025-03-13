@@ -2,6 +2,7 @@ import { Button, Card, Form, Input, message, Image } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
 import { list } from '../services';
 import { CreateBookModal } from './CreateBookModal';
+import { UpdateBookModal } from './UpdateBookModal';
 
 interface Book {
   id: number;
@@ -15,6 +16,8 @@ export function BookManage() {
   const [bookList, setBookList] = useState<Array<Book>>([]);
   const [name, setName] = useState('');
   const [isCreateBookModalOpen, setCreateBookModalOpen] = useState(false);
+  const [isUpdateBookModalOpen, setUpdateBookModalOpen] = useState(false);
+  const [updateId, setUpdateId] = useState(0);
 
   const fetchData = useCallback(async () => {
     try {
@@ -89,7 +92,15 @@ export function BookManage() {
                   </div>
                   <div className='mt-auto flex justify-around'>
                     <a href='#'>详情</a>
-                    <a href='#'>编辑</a>
+                    <a
+                      href='#'
+                      onClick={() => {
+                        setUpdateId(book.id);
+                        setUpdateBookModalOpen(true);
+                      }}
+                    >
+                      编辑
+                    </a>
                     <a href='#'>删除</a>
                   </div>
                 </div>
@@ -105,6 +116,14 @@ export function BookManage() {
           fetchData();
         }}
       ></CreateBookModal>
+      <UpdateBookModal
+        id={updateId}
+        isOpen={isUpdateBookModalOpen}
+        handleClose={() => {
+          setUpdateBookModalOpen(false);
+          fetchData();
+        }}
+      ></UpdateBookModal>
     </div>
   );
 }
