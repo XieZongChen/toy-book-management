@@ -1,6 +1,6 @@
-import { Button, Card, Form, Input, message, Image } from 'antd';
+import { Button, Card, Form, Input, message, Image, Popconfirm } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
-import { list } from '../services';
+import { deleteBook, list } from '../services';
 import { CreateBookModal } from './CreateBookModal';
 import { UpdateBookModal } from './UpdateBookModal';
 
@@ -37,6 +37,16 @@ export function BookManage() {
 
   async function searchBook(values: { name: string }) {
     setName(values.name);
+  }
+
+  async function handleDelete(id: number) {
+    try {
+      await deleteBook(id);
+      message.success('删除成功');
+      fetchData();
+    } catch (e: any) {
+      message.error(e.response.data.message);
+    }
   }
 
   return (
@@ -101,7 +111,15 @@ export function BookManage() {
                     >
                       编辑
                     </a>
-                    <a href='#'>删除</a>
+                    <Popconfirm
+                      title='图书删除'
+                      description='确认删除吗？'
+                      onConfirm={() => handleDelete(book.id)}
+                      okText='Yes'
+                      cancelText='No'
+                    >
+                      <a href='#'>删除</a>
+                    </Popconfirm>
                   </div>
                 </div>
               </Card>
