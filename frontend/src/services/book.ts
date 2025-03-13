@@ -1,21 +1,4 @@
-import axios from "axios";
-
-const axiosInstance = axios.create({
-    baseURL: 'http://localhost:3000/',
-    timeout: 3000
-});
-
-export async function register(username: string, password: string) {
-    return await axiosInstance.post('/user/register', {
-        username, password
-    });
-}
-
-export async function login(username: string, password: string) {
-    return await axiosInstance.post('/user/login', {
-        username, password
-    });
-}
+import { axiosInstance } from "./base";
 
 export async function list(name: string) {
     return await axiosInstance.get('/book/list', {
@@ -51,7 +34,7 @@ export interface UpdateBook {
     author: string;
     description: string;
     cover: string;
-  }
+}
 
 export async function update(book: UpdateBook) {
     return await axiosInstance.put('/book/update', {

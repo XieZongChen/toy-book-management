@@ -2,7 +2,7 @@ import { useCallback, useEffect } from 'react';
 import { Button, Form, Input, Modal, message } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import { CoverUpload } from './CoverUpload';
-import { detail, update, UpdateBook } from '../services';
+import { detail, update, UpdateBook } from '../services/book';
 
 interface UpdateBookModalProps {
   id: number;

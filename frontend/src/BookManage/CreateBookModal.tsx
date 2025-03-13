@@ -1,6 +1,6 @@
 import { Form, Input, message, Modal } from 'antd';
 import { useForm } from 'antd/es/form/Form';
-import { create, CreateBook } from '../services';
+import { create, CreateBook } from '../services/book';
 import { CoverUpload } from './CoverUpload';
 
 interface CreateBookModalProps {

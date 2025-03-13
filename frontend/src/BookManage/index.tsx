@@ -1,8 +1,8 @@
 import { Button, Card, Form, Input, message, Image, Popconfirm } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
-import { deleteBook, list } from '../services';
 import { CreateBookModal } from './CreateBookModal';
 import { UpdateBookModal } from './UpdateBookModal';
+import { deleteBook, list } from '../services/book';
 
 interface Book {
   id: number;

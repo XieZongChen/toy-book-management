@@ -1,5 +1,5 @@
 import { Button, Form, Input, message } from 'antd';
-import { login } from '../services';
+import { login } from '../services/user';
 
 interface LoginUser {
   username: string;
