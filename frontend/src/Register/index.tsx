@@ -1,11 +1,5 @@
 import { Button, Form, Input, message } from 'antd';
-import { register } from '../services/user';
-
-interface RegisterUser {
-  username: string;
-  password: string;
-  password2: string;
-}
+import { register, RegisterUser } from '../services/user';
 
 const layout1 = {
   labelCol: { span: 5 },
