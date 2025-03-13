@@ -30,7 +30,7 @@ export interface CreateBook {
     author: string;
     description: string;
     cover: string;
-  }
+}
 
 export async function create(book: CreateBook) {
     return await axiosInstance.post('/book/create', {
@@ -39,5 +39,9 @@ export async function create(book: CreateBook) {
         description: book.description,
         cover: book.cover
     });
+}
+
+export async function detail(id: number) {
+    return await axiosInstance.get(`/book/${id}`);
 }
 
