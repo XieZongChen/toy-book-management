@@ -1,6 +1,7 @@
 import { Button, Card, Form, Input, message, Image } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
 import { list } from '../services';
+import { CreateBookModal } from './CreateBookModal';
 
 interface Book {
   id: number;
@@ -13,6 +14,7 @@ interface Book {
 export function BookManage() {
   const [bookList, setBookList] = useState<Array<Book>>([]);
   const [name, setName] = useState('');
+  const [isCreateBookModalOpen, setCreateBookModalOpen] = useState(false);
 
   const fetchData = useCallback(async () => {
     try {
@@ -49,7 +51,7 @@ export function BookManage() {
               <Button color='primary' variant='outlined' htmlType='submit'>
                 搜索图书
               </Button>
-              <Button type='primary' htmlType='submit'>
+              <Button type='primary' onClick={() => setCreateBookModalOpen(true)}>
                 添加图书
               </Button>
             </div>
@@ -73,10 +75,15 @@ export function BookManage() {
                 }
               >
                 <div className='flex flex-col gap-[8px]'>
-                  <div className='text-xl font-bold tracking-wider truncate' title={book.name}>
+                  <div
+                    className='text-xl font-bold tracking-wider truncate'
+                    title={book.name}
+                  >
                     {book.name}
                   </div>
-                  <div className='text-x truncate' title={book.author}>{book.author}</div>
+                  <div className='text-x truncate' title={book.author}>
+                    {book.author}
+                  </div>
                   <div className='mt-auto flex justify-around'>
                     <a href='#'>详情</a>
                     <a href='#'>编辑</a>
@@ -88,6 +95,12 @@ export function BookManage() {
           })}
         </div>
       </div>
+      <CreateBookModal
+        isOpen={isCreateBookModalOpen}
+        handleClose={() => {
+          setCreateBookModalOpen(false);
+        }}
+      ></CreateBookModal>
     </div>
   );
 }
