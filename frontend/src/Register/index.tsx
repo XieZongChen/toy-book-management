@@ -1,5 +1,5 @@
+import { register, RegisterUser } from '@/services/user';
 import { Button, Form, Input, message } from 'antd';
-import { register, RegisterUser } from '../services/user';
 
 const layout1 = {
   labelCol: { span: 5 },

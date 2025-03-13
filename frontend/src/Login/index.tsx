@@ -1,5 +1,5 @@
 import { Button, Form, Input, message } from 'antd';
-import { login, LoginUser } from '../services/user';
+import { login, LoginUser } from '@/services/user';
 
 const layout1 = {
   labelCol: { span: 4 },
