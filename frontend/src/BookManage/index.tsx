@@ -51,7 +51,10 @@ export function BookManage() {
               <Button color='primary' variant='outlined' htmlType='submit'>
                 搜索图书
               </Button>
-              <Button type='primary' onClick={() => setCreateBookModalOpen(true)}>
+              <Button
+                type='primary'
+                onClick={() => setCreateBookModalOpen(true)}
+              >
                 添加图书
               </Button>
             </div>
@@ -99,6 +102,7 @@ export function BookManage() {
         isOpen={isCreateBookModalOpen}
         handleClose={() => {
           setCreateBookModalOpen(false);
+          setName('');
         }}
       ></CreateBookModal>
     </div>

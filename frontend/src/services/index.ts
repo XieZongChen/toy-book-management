@@ -24,3 +24,20 @@ export async function list(name: string) {
         }
     });
 }
+
+export interface CreateBook {
+    name: string;
+    author: string;
+    description: string;
+    cover: string;
+  }
+
+export async function create(book: CreateBook) {
+    return await axiosInstance.post('/book/create', {
+        name: book.name,
+        author: book.author,
+        description: book.description,
+        cover: book.cover
+    });
+}
+

@@ -1,5 +1,6 @@
-import { Form, Input, Modal } from 'antd';
+import { Form, Input, message, Modal } from 'antd';
 import { useForm } from 'antd/es/form/Form';
+import { create, CreateBook } from '../services';
 
 interface CreateBookModalProps {
   isOpen: boolean;
@@ -10,17 +11,26 @@ const layout = {
   wrapperCol: { span: 18 },
 };
 
-export interface CreateBook {
-  name: string;
-  author: string;
-  description: string;
-  cover: string;
-}
-
 export function CreateBookModal(props: CreateBookModalProps) {
   const [form] = useForm<CreateBook>();
 
-  const handleOk = async function () {};
+  const handleOk = async function () {
+    await form.validateFields();
+
+    const values = form.getFieldsValue();
+
+    try {
+      const res = await create(values);
+
+      if (res.status === 201 || res.status === 200) {
+        message.success('创建成功');
+        form.resetFields();
+        props.handleClose();
+      }
+    } catch (e: any) {
+      message.error(e.response.data.message);
+    }
+  };
 
   return (
     <Modal
