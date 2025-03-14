@@ -70,16 +70,18 @@ export function BookManage() {
             return (
               <Card
                 key={`${book.id}+${idx}`}
-                className='w-[240px]'
+                className='w-[240px] overflow-hidden'
+                styles={{ body: { padding: '8px 16px' } }}
                 hoverable
                 cover={
-                  <Image
-                    className='rounded-t-xl'
-                    width={'100%'}
-                    height={300}
-                    src={`http://localhost:3000/${book.cover}`}
-                    fallback=''
-                  />
+                  <div className='h-[300px] overflow-hidden'>
+                    <Image
+                      height={300}
+                      src={`http://localhost:3000/${book.cover}`}
+                      fallback=''
+                      placeholder
+                    />
+                  </div>
                 }
               >
                 <div className='flex flex-col gap-[8px]'>
