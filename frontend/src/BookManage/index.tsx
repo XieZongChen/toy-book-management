@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { deleteBook, IBook, list } from '@/services/book';
 import { CreateBookModal } from './CreateBookModal';
 import { UpdateBookModal } from './UpdateBookModal';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 export function BookManage() {
   const [bookList, setBookList] = useState<Array<IBook>>([]);
@@ -94,17 +95,17 @@ export function BookManage() {
                   <div className='text-x truncate' title={book.author}>
                     {book.author}
                   </div>
-                  <div className='mt-auto flex justify-around'>
-                    <a href='#'>详情</a>
-                    <a
-                      href='#'
+                  <div className='text-x truncate' title={book.description}>
+                    {book.description}
+                  </div>
+                  <div className='mt-auto flex justify-end gap-[12px]'>
+                    <EditOutlined
+                      style={{ fontSize: 18, color: '#1677ff' }}
                       onClick={() => {
                         setUpdateId(book.id);
                         setUpdateBookModalOpen(true);
                       }}
-                    >
-                      编辑
-                    </a>
+                    />
                     <Popconfirm
                       title='图书删除'
                       description='确认删除吗？'
@@ -112,7 +113,9 @@ export function BookManage() {
                       okText='Yes'
                       cancelText='No'
                     >
-                      <a href='#'>删除</a>
+                      <DeleteOutlined
+                        style={{ fontSize: 18, color: '#ff4d4f' }}
+                      />
                     </Popconfirm>
                   </div>
                 </div>
