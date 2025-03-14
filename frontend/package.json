@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "install": "npm install",
+    "clean": "rm -rf ./node_modules"
   },
   "dependencies": {
     "@ant-design/icons": "^5.6.1",

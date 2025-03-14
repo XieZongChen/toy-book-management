@@ -4,8 +4,14 @@
   "description": "",
   "scripts": {
     "dev": "npm-run-all --parallel backend:dev frontend:dev",
+    "install": "npm-run-all --parallel backend:install frontend:install",
+    "clean": "npm-run-all --parallel backend:clean frontend:clean",
     "frontend:dev": "npm run --prefix ./frontend dev",
-    "backend:dev": "npm run --prefix ./backend start:dev"
+    "backend:dev": "npm run --prefix ./backend start:dev",
+    "frontend:install": "npm run --prefix ./frontend install",
+    "backend:install": "npm run --prefix ./backend install",
+    "frontend:clean": "npm run --prefix ./frontend clean",
+    "backend:clean": "npm run --prefix ./backend clean"
   },
   "author": "",
   "license": "ISC",
